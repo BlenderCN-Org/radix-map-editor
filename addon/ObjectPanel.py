@@ -19,6 +19,7 @@ class ObjectPanel(bpy.types.Panel):
     object = context.active_object
     layout = self.layout
 
+    layout.prop(object, "radixName", text="Name")
     layout.prop(object, "radixTypes")
     if object.radixTypes == "trigger":
       layout.prop(object, "radixTriggerTypes")
@@ -34,14 +35,14 @@ class ObjectPanel(bpy.types.Panel):
     if object.radixMaterial:
       layout.label(text="Material properties", icon='MATERIAL')
 
-      layout.prop(object, "radixMaterial", text="Name ")
+      layout.prop(object, "radixMaterial", text="Name")
 
       if object.radixMaterial != "none":
         mat = MaterialManager.MATERIALS[object.radixMaterial]
 
         row = layout.row(align=True)
         row.alignment = 'EXPAND'
-        row.label(text="Portalable : ")
+        row.label(text="Portalable: ")
         if mat['portalable']:
           row.label(text="Yes")
         else:
@@ -49,5 +50,5 @@ class ObjectPanel(bpy.types.Panel):
 
         row = layout.row(align=True)
         row.alignment = 'EXPAND'
-        row.label(text="Kind : ")
+        row.label(text="Kind: ")
         row.label(text=mat["kind"])
