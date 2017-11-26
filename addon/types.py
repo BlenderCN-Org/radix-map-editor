@@ -34,13 +34,16 @@ def onUpdateRadixTypes(self, context):
     name = type
 
     if type == "trigger":
-      name = type + "." + object.radixTriggerTypes
+      name = name + "." + object.radixTriggerTypes
     elif type == "volume":
-      name = type + "." + object.radixVolumeTypes
+      name = name + "." + object.radixVolumeTypes
     elif type == "model":
-      name = type + "." + object.radixModel
+      name = name + "." + object.radixModel
     else:
-      name = type + "." + object.radixMaterial
+      name = name + "." + object.radixMaterial
+
+    if object.radixName:
+      name = name + "." + object.radixName
 
     if object.radixTypes != "none":
       object.name = name
@@ -70,7 +73,7 @@ def setProperties():
   bpy.types.Object.radixTriggerFilepath = StringProperty(
     name="Filepath",
     description="Relative path to the file for trigger",
-    default="none"
+    default=""
   )
   bpy.types.Object.radixTriggerAudioLoop = BoolProperty(
     name="Enable loop",
@@ -80,12 +83,18 @@ def setProperties():
   bpy.types.Object.radixModel = StringProperty(
     name="Model",
     description="Relative path to the model",
-    default="none",
+    default="",
     update=onUpdateRadixTypes
   )
   bpy.types.WindowManager.importedFilepath = StringProperty(
     name="Imported filepath",
-    default="none"
+    default=""
+  )
+  bpy.types.Object.radixName = StringProperty(
+    name="Object name",
+    description="Object name used by Radix engine as identifier",
+    default="",
+    update=onUpdateRadixTypes
   )
 
 
@@ -98,4 +107,5 @@ def delProperties():
   del bpy.types.Object.radixTriggerAudioLoop
   del bpy.types.Object.radixModel
   del bpy.types.WindowManager.importedFilepath
-  del bpy.types.Object.radixMaterial
+  del bpy.types.Object.radixMaterial  # Defined in managers/MaterialManager.py
+  del bpy.types.Object.radixName
