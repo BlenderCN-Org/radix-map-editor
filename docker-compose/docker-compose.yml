@@ -1,0 +1,10 @@
+version: '2'
+
+services:
+  arch-blender:
+    container_name: arch-blender
+    image: sgorava/arch-blender
+    volumes:
+      - "../tests:/data"
+      - "../addon:/usr/share/blender/2.79/scripts/addons/toGlPortalXml"
+      - "../../glPortal/data:/root/.glportal/data"
