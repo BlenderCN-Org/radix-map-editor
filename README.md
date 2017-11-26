@@ -24,7 +24,7 @@ The Unofficial but best Radix engine map editor allows Blender to work with Radi
 If you are upgrading, you may need to restart Blender.
 
 ## Development
-For information about develompemt look at [documentation](../blob/master/doc/Installation.org)
+For information about develompemt look at [documentation](../master/doc/Installation.org)
 
 ## History
 Originaly editor is based on [GlPortal/map-editor](https://github.com/GlPortal/map-editor)
