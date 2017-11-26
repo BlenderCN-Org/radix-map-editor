@@ -34,13 +34,16 @@ def onUpdateRadixTypes(self, context):
     name = type
 
     if type == "trigger":
-      name = type + "." + object.radixTriggerTypes
+      name = name + "." + object.radixTriggerTypes
     elif type == "volume":
-      name = type + "." + object.radixVolumeTypes
+      name = name + "." + object.radixVolumeTypes
     elif type == "model":
-      name = type + "." + object.radixModel
+      name = name + "." + object.radixModel
     else:
-      name = type + "." + object.radixMaterial
+      name = name + "." + object.radixMaterial
+
+    if object.radixName:
+      name = name + "." + object.radixName
 
     if object.radixTypes != "none":
       object.name = name
@@ -89,7 +92,9 @@ def setProperties():
   )
   bpy.types.Object.radixName = StringProperty(
     name="Object name",
-    default=""
+    description="Object name used by Radix engine as identifier",
+    default="",
+    update=onUpdateRadixTypes
   )
 
 
