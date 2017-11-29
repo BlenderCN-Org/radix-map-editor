@@ -55,15 +55,15 @@ def itemsMaterial(self, context):
   return [(name, fancyName, tooltip) for name, fancyName, tooltip in types.RADIX_MATERIAL_TYPES]
 
 
-def itemsModel(self, centext):
+def itemsModel(self, context):
   return [(file, fancyName, fancyName) for file, fancyName in ModelManager.MODELS.items()]
 
 
-def itemsMap(self, centext):
+def itemsMap(self, context):
   return [(key, name, name) for key, name in MapManager.MAPS.items()]
 
 
-def itemsAudio(self, centext):
+def itemsAudio(self, context):
   return [(key, name, name) for key, name in AudioManager.AUDIO.items()]
 
 
