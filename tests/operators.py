@@ -128,7 +128,7 @@ class OperatorsTest(unittest.TestCase):
     for operator in RadixMapEditor.operators.operatorList:
       print("Checking:", operator["properties"]["bl_idname"])
       self.assertTrue(
-        hasattr(bpy.types, "RADIX_OT_" + operator["properties"]["bl_idname"].lstrip("radix.")),
+        hasattr(bpy.types, "RADIX_OT_" + operator["properties"]["bl_idname"].replace("radix.", "")),
         "Operator 'bpy.ops." + operator["properties"]["bl_idname"] + "' does not exist"
       )
 
