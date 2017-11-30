@@ -126,9 +126,13 @@ class OperatorsTest(unittest.TestCase):
   def testDynamicOperatorsRegistered(self):
     """ Test if operators are registered """
     for operator in RadixMapEditor.operators.operatorList:
+      idname = "RADIX_OT_" + operator["properties"]["bl_idname"].replace("radix.", "")
+
       print("Checking:", operator["properties"]["bl_idname"])
+      print("as      :", idname)
+
       self.assertTrue(
-        hasattr(bpy.types, "RADIX_OT_" + operator["properties"]["bl_idname"].replace("radix.", "")),
+        hasattr(bpy.types, idname),
         "Operator 'bpy.ops." + operator["properties"]["bl_idname"] + "' does not exist"
       )
 
