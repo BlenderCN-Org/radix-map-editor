@@ -12,7 +12,7 @@ class Preferences(AddonPreferences):
 
   triggerXrays = BoolProperty(
     name="Use X-Rays for triggers",
-    description="Enable / Disable X-rays for triggers.",
+    description="Enable X-rays for triggers.",
     default=True,
     update=updateTriggerXrays
   )
