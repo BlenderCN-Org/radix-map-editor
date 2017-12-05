@@ -19,7 +19,7 @@ class ObjectPanel(bpy.types.Panel):
     object = context.active_object
     layout = self.layout
 
-    layout.prop(object, "radixName", text="Name")
+    layout.prop(object, "radixName")
     layout.prop(object, "radixTypes")
     if object.radixTypes == "trigger":
       layout.prop(object, "radixTriggerTypes")
@@ -29,10 +29,12 @@ class ObjectPanel(bpy.types.Panel):
 
         if object.radixTriggerTypes == "audio":
           layout.prop(object, "radixTriggerAudioLoop")
+      elif object.radixTriggerTypes in {"teleport", "checkpoint"}:
+        layout.prop(object, "radixTriggerDestination")
     elif object.radixTypes == "volume":
       layout.prop(object, "radixVolumeTypes")
 
-    if object.radixMaterial:
+    if object.radixMaterial and object.type == 'MESH':
       layout.label(text="Material properties", icon='MATERIAL')
 
       layout.prop(object, "radixMaterial", text="Name")

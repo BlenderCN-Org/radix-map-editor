@@ -1,8 +1,10 @@
 from bpy.props import StringProperty, BoolProperty, EnumProperty
 
-from .operatorHelpers import itemsMaterial, itemsModel, itemsAudio, itemsMap
+from .operatorHelpers import itemsMaterial, itemsModel, itemsAudio, itemsMap, itemsDestination
 from .managers import ModelManager, MaterialManager
 
+
+"""List of dynamically created operators"""
 operatorList = [
   # Triggers
   {
@@ -27,6 +29,32 @@ operatorList = [
       "bl_description": "Mark the selection as map trigger.",
       "bl_options": {'REGISTER', 'UNDO'},
       "type": StringProperty(default="map", options={'HIDDEN'}),
+      "loop": BoolProperty(default=False, options={'HIDDEN'}),
+      "filePath": StringProperty(default="", options={'HIDDEN'})
+    }
+  },
+  {
+    "base": "TriggerSetBase",
+    "className": "TriggerSetTeleport",
+    "properties": {
+      "bl_idname": "trigger_set_teleport",
+      "bl_label": "Set Teleport Trigger",
+      "bl_description": "Mark the selection as teleport trigger.",
+      "bl_options": {'REGISTER', 'UNDO'},
+      "type": StringProperty(default="teleport", options={'HIDDEN'}),
+      "loop": BoolProperty(default=False, options={'HIDDEN'}),
+      "filePath": StringProperty(default="", options={'HIDDEN'})
+    }
+  },
+  {
+    "base": "TriggerSetBase",
+    "className": "TriggerSetCheckpoint",
+    "properties": {
+      "bl_idname": "trigger_set_checkpoint",
+      "bl_label": "Set Checkpoint Trigger",
+      "bl_description": "Mark the selection as checkpoint trigger.",
+      "bl_options": {'REGISTER', 'UNDO'},
+      "type": StringProperty(default="checkpoint", options={'HIDDEN'}),
       "loop": BoolProperty(default=False, options={'HIDDEN'}),
       "filePath": StringProperty(default="", options={'HIDDEN'})
     }
@@ -103,6 +131,38 @@ operatorList = [
     }
   },
   {
+    "base": "SearchBase",
+    "className": "TriggerSearchTeleport",
+    "properties": {
+      "bl_idname": "trigger_search_teleport",
+      "bl_label": "Search Teleport Trigger",
+      "bl_description": "Set teleport trigger.",
+      "bl_options": {'REGISTER', 'UNDO'},
+      "bl_property": "items",
+      "items": EnumProperty(items=itemsDestination, options={'HIDDEN'}),
+      "action": "trigger_set_teleport",
+      "kwargs": {
+        "items": "filePath"
+      }
+    }
+  },
+  {
+    "base": "SearchBase",
+    "className": "TriggerSearchCheckpoint",
+    "properties": {
+      "bl_idname": "trigger_search_checkpoint",
+      "bl_label": "Search Checkpoint Trigger",
+      "bl_description": "Set checkpoint trigger.",
+      "bl_options": {'REGISTER', 'UNDO'},
+      "bl_property": "items",
+      "items": EnumProperty(items=itemsDestination, options={'HIDDEN'}),
+      "action": "trigger_set_checkpoint",
+      "kwargs": {
+        "items": "filePath"
+      }
+    }
+  },
+  {
     "base": "AddBase",
     "className": "TriggerAddAudio",
     "properties": {
@@ -123,6 +183,30 @@ operatorList = [
       "bl_description": "Add map trigger.",
       "bl_options": {'REGISTER', 'UNDO'},
       "action": "trigger_search_map",
+      "kwargs": ['INVOKE_DEFAULT']
+    }
+  },
+  {
+    "base": "AddBase",
+    "className": "TriggerAddTeleport",
+    "properties": {
+      "bl_idname": "trigger_add_teleport",
+      "bl_label": "Add Teleport Trigger",
+      "bl_description": "Add teleport trigger.",
+      "bl_options": {'REGISTER', 'UNDO'},
+      "action": "trigger_search_teleport",
+      "kwargs": ['INVOKE_DEFAULT']
+    }
+  },
+  {
+    "base": "AddBase",
+    "className": "TriggerAddCheckpoint",
+    "properties": {
+      "bl_idname": "trigger_add_checkpoint",
+      "bl_label": "Add Checkpoint Trigger",
+      "bl_description": "Add checkpoint trigger.",
+      "bl_options": {'REGISTER', 'UNDO'},
+      "action": "trigger_search_checkpoint",
       "kwargs": ['INVOKE_DEFAULT']
     }
   },
@@ -231,6 +315,53 @@ operatorList = [
       "bl_description": "Add volume of acid.",
       "bl_options": {'REGISTER', 'UNDO'},
       "action": "volume_set_acid",
+      "kwargs": {}
+    }
+  },
+  # Cameras
+  {
+    "base": "CameraSetBase",
+    "className": "CameraSetDestination",
+    "properties": {
+      "bl_idname": "camera_set_destination",
+      "bl_label": "Set Destination",
+      "bl_description": "Mark selected cameras as destination.",
+      "bl_options": {'REGISTER', 'UNDO'},
+      "radixType": "destination"
+    }
+  },
+  {
+    "base": "CameraSetBase",
+    "className": "CameraSetSpawn",
+    "properties": {
+      "bl_idname": "camera_set_spawn",
+      "bl_label": "Set Spawn",
+      "bl_description": "Mark selected cameras as spawn.",
+      "bl_options": {'REGISTER', 'UNDO'},
+      "radixType": "spawn"
+    }
+  },
+  {
+    "base": "CameraAddBase",
+    "className": "CameraAddDestination",
+    "properties": {
+      "bl_idname": "camera_add_destination",
+      "bl_label": "Add Destination",
+      "bl_description": "Add destination.",
+      "bl_options": {'REGISTER', 'UNDO'},
+      "action": "camera_set_destination",
+      "kwargs": {}
+    }
+  },
+  {
+    "base": "CameraAddBase",
+    "className": "CameraAddSpawn",
+    "properties": {
+      "bl_idname": "camera_add_spawn",
+      "bl_label": "Add Spawn",
+      "bl_description": "Add spawn.",
+      "bl_options": {'REGISTER', 'UNDO'},
+      "action": "camera_set_spawn",
       "kwargs": {}
     }
   },

@@ -32,7 +32,9 @@ def setTrigger(object, type, filePath="", loop=False):
   if loop:
     object.radixTriggerAudioLoop = loop
 
-  if filePath:
+  if filePath and type in {"teleport", "checkpoint"}:
+    object.radixTriggerDestination = filePath
+  elif filePath:
     object.radixTriggerFilepath = filePath
 
 
@@ -65,6 +67,10 @@ def itemsMap(self, context):
 
 def itemsAudio(self, context):
   return [(key, name, name) for key, name in AudioManager.AUDIO.items()]
+
+
+def itemsDestination(self, context):
+  return [(object.radixName, object.radixName, object.radixName) for object in context.scene.objects if object.radixName and object.radixTypes == "destination"]
 
 
 def simpleCube():

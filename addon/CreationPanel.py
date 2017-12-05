@@ -28,7 +28,13 @@ class CreationPanel(bpy.types.Panel):
     layout.operator("radix.trigger_add_win", icon='MESH_CUBE', text="Win")
     layout.operator("radix.trigger_add_map", icon='MESH_CUBE', text="Map")
     layout.operator("radix.trigger_add_audio", icon='MESH_CUBE', text="Audio")
+    layout.operator("radix.trigger_add_teleport", icon='MESH_CUBE', text="Teleport")
+    layout.operator("radix.trigger_add_checkpoint", icon='MESH_CUBE', text="Checkpoint")
 
     layout.label("Lights:")
     layout.operator("radix.add_light_common", icon='LAMP_POINT')
     layout.operator("radix.add_light_end", icon='LAMP_POINT')
+
+    layout.label("Cameras:")
+    layout.operator("radix.camera_add_spawn", icon='LAMP_POINT', text="Spawn")
+    layout.operator("radix.camera_add_destination", icon='LAMP_POINT', text="Destination")

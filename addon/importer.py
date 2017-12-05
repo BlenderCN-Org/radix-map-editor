@@ -1,7 +1,9 @@
 import bpy
-import math
 import os
 import xml.etree.cElementTree as ET
+
+from math import radians
+from mathutils import Euler
 
 from .managers import ModelManager
 from .operatorHelpers import simpleCube
@@ -48,10 +50,10 @@ class Importer():
     return [x, z, y]
 
   def extractRotation(self, param):
-    x = math.radians(float(param.get("x")))
-    y = math.radians(float(param.get("y")))
-    z = math.radians(-float(param.get("z")))
-    return [x, z, y]
+    x = float(param.get("x"))
+    y = float(param.get("y"))
+    z = -float(param.get("z"))
+    return Euler(map(radians, (x, y, z)), 'XYZ')
 
   def extrackColor(self, param):
     r = float(param.get("r"))
@@ -90,7 +92,7 @@ class Importer():
 
     return self.extractMaterials(root)
 
-  def getBool(self, value):
+  def xmlGetBool(self, value):
     trueValues = ('true', 'yes')
 
     return value.lower() in trueValues
@@ -120,23 +122,33 @@ class Importer():
         object = self.createCube(child)
         if object:
           bpy.ops.radix.volume_set_acid()
-      elif child.tag == "spawn":
+      elif child.tag in {"spawn", "destination"}:
         bpy.ops.object.camera_add()
 
         object = bpy.context.active_object
         if object:
+          if child.tag == "spawn":
+            bpy.ops.radix.camera_set_spawn()
+          elif child.tag == "destination":
+            bpy.ops.radix.camera_set_destination()
+          else:
+            bpy.data.objects.remove(object)
+            continue
+
           object.radixName = self.extractName(child)
+
+          object.rotation_euler = Euler(map(radians, (90.0, 0.0, 0.0)), 'XYZ')
 
           for param in child:
             if param.tag == "position":
               object.location = self.extractPosition(param)
             elif param.tag == "rotation":
               rotation = [
-                math.radians(float(param.get("x")) + 90),
-                math.radians(0),
-                math.radians(float(param.get("y")))
+                float(param.get("x")) + 90.0,
+                float(param.get("y")),
+                0.0
               ]
-              object.rotation_euler = rotation
+              object.rotation_euler = Euler(map(radians, rotation), 'XYZ')
       elif child.tag == "light":
         bpy.ops.object.lamp_add(type='POINT')
 
@@ -175,21 +187,31 @@ class Importer():
           elif type == "audio":
             loop = False
             if 'loop' in child.attrib:
-              loop = self.getBool(child.get('loop'))
+              loop = self.xmlGetBool(child.get('loop'))
 
             if 'file' in child.attrib:
               bpy.ops.radix.trigger_set_audio(filePath=child.get('file'), loop=loop)
             else:
               bpy.data.objects.remove(object)
+          elif type == "teleport":
+            if 'destination' in child.attrib:
+              bpy.ops.radix.trigger_set_teleport(filePath=child.get('destination'))
+            else:
+              bpy.data.objects.remove(object)
+          elif type == "checkpoint":
+            if 'destination' in child.attrib:
+              bpy.ops.radix.trigger_set_checkpoint(filePath=child.get('destination'))
+            else:
+              bpy.data.objects.remove(object)
           else:
             bpy.data.objects.remove(object)
-      elif child.tag == "object" or child.tag == "model":
+      elif child.tag == "model":
         mesh = child.get("mesh")
         matAttr = "material"
 
         if matAttr in child.attrib:
-          mid = child.get(matAttr)
-          if not ModelManager.create(mesh, materials[mid]):
+          materialId = child.get(matAttr)
+          if not ModelManager.create(mesh, materials[materialId]):
             continue
         elif not ModelManager.create(mesh):
           continue
@@ -205,4 +227,7 @@ class Importer():
               object.rotation_euler = self.extractRotation(param)
             elif param.tag == "scale":
               object.dimensions = self.extractDimensions(param)
+
+    bpy.ops.object.select_all(action='DESELECT')
+
     return {'FINISHED'}

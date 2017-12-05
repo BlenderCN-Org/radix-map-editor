@@ -117,7 +117,11 @@ class Exporter():
       if object.type == 'LAMP':
         self.writeLampToTree(object, root)
       elif object.type == 'CAMERA':
-        boxElement = tree.SubElement(root, "spawn")
+        if object.radixTypes in {"spawn", "destination"}:
+          boxElement = tree.SubElement(root, object.radixTypes)
+        else:
+          continue
+
         self.storeName(boxElement, object.radixName)
 
         positionElement = tree.SubElement(boxElement, "position")
@@ -126,7 +130,7 @@ class Exporter():
         rotationElement = tree.SubElement(boxElement, "rotation")
         rotationElement.set("x", self.prepareRot(math.degrees(object.rotation_euler[0]) - 90))
         rotationElement.set("y", self.prepareRot(math.degrees(object.rotation_euler[2])))
-        rotationElement.set("z", "0")
+        rotationElement.set("z", "0.0")
       elif object.type == 'MESH':
         boxElement = None
 
@@ -150,6 +154,9 @@ class Exporter():
             if object.radixTriggerTypes == "audio":
               boxElement.set("file", object.radixTriggerFilepath)
               boxElement.set("loop", self.setBool(object.radixTriggerAudioLoop))
+
+            if object.radixTriggerTypes in {"teleport", "checkpoint"}:
+              boxElement.set("destination", object.radixTriggerDestination)
         elif type == "wall":
           boxElement = tree.SubElement(root, "wall")
 

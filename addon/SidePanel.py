@@ -26,10 +26,16 @@ class SidePanel(bpy.types.Panel):
     layout.operator("radix.trigger_set_win", icon='MESH_CUBE', text="Win")
     layout.operator("radix.trigger_search_map", icon='MESH_CUBE', text="Map")
     layout.operator("radix.trigger_search_audio", icon='MESH_CUBE', text="Audio")
+    layout.operator("radix.trigger_search_teleport", icon='MESH_CUBE', text="Teleport")
+    layout.operator("radix.trigger_search_checkpoint", icon='MESH_CUBE', text="Checkpoint")
 
     layout.label("Light:")
     layout.operator("radix.set_light_common", icon='LAMP_POINT')
     layout.operator("radix.set_light_end", icon='LAMP_POINT')
+
+    layout.label("Cameras:")
+    layout.operator("radix.camera_set_spawn", icon='LAMP_POINT', text="Spawn")
+    layout.operator("radix.camera_set_destination", icon='LAMP_POINT', text="Destination")
 
     layout.label("Map:")
     layout.operator("radix.fix_map", icon='SCRIPTWIN')
