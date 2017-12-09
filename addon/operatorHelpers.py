@@ -78,6 +78,6 @@ def simpleCube():
     object = bpy.context.selected_objects[0]
     object.radixTypes = "none"
     object.dimensions = [2.0, 2.0, 2.0]
-    bpy.ops.object.transform_apply(location=False, rotation=False, scale=True)
+    bpy.ops.object.transform_apply(scale=True)
     return True
   return False

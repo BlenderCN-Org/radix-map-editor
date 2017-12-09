@@ -145,8 +145,8 @@ class Importer():
             elif param.tag == "rotation":
               rotation = [
                 float(param.get("x")) + 90.0,
-                float(param.get("y")),
-                0.0
+                0.0,
+                float(param.get("y"))
               ]
               object.rotation_euler = Euler(map(radians, rotation), 'XYZ')
       elif child.tag == "light":

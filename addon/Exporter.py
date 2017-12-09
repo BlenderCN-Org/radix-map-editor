@@ -35,18 +35,20 @@ class Exporter():
     return str(round(degree % 360, self.decimalPoints))
 
   def checkRotation(self, object):
-    x = math.degrees(object.rotation_euler[0])
-    y = math.degrees(object.rotation_euler[2])
-    z = math.degrees(-object.rotation_euler[1])
+    rotation = object.matrix_world.to_euler('XYZ')
 
-    if self.prepareRot(x) == "0.0" and self.prepareRot(y) == "0.0" and self.prepareRot(z) == "0.0":
-      return False
-    return True
+    print(rotation)
+    for i in rotation:
+      if self.prepareRot(i) != "0.0":
+        return True
+    return False
 
   def storeRotation(self, element, object):
-    element.set("x", self.prepareRot(math.degrees(object.rotation_euler[0])))
-    element.set("y", self.prepareRot(math.degrees(object.rotation_euler[2])))
-    element.set("z", self.prepareRot(math.degrees(-object.rotation_euler[1])))
+    rotation = object.matrix_world.to_euler('XYZ')
+
+    element.set("x", self.prepareRot(math.degrees(rotation.x)))
+    element.set("y", self.prepareRot(math.degrees(rotation.z)))
+    element.set("z", self.prepareRot(math.degrees(-rotation.y)))
 
   def storeScale(self, element, object):
     element.set("x", str(round(object.dimensions[0], self.decimalPoints)))
@@ -127,9 +129,11 @@ class Exporter():
         positionElement = tree.SubElement(boxElement, "position")
         self.storePosition(positionElement, object)
 
+        rotation = object.matrix_world.to_euler('XYZ')
+
         rotationElement = tree.SubElement(boxElement, "rotation")
-        rotationElement.set("x", self.prepareRot(math.degrees(object.rotation_euler[0]) - 90))
-        rotationElement.set("y", self.prepareRot(math.degrees(object.rotation_euler[2])))
+        rotationElement.set("x", self.prepareRot(math.degrees(rotation.x) - 90))
+        rotationElement.set("y", self.prepareRot(math.degrees(rotation.z)))
         rotationElement.set("z", "0.0")
       elif object.type == 'MESH':
         boxElement = None

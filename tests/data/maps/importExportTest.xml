@@ -69,10 +69,12 @@
 	</trigger>
 	<acid name="Cute water">
 		<position x="-2.0" y="2.0" z="-8.0"/>
+		<rotation x="0.0" y="45.0" z="0.0"/>
 		<scale x="2.0" y="2.0" z="2.0"/>
 	</acid>
 	<wall material="3">
 		<position x="-5.0" y="2.0" z="-8.0"/>
+		<rotation x="0.0" y="0.0" z="315.0"/>
 		<scale x="2.0" y="2.0" z="2.0"/>
 	</wall>
 	<spawn name="Start">
@@ -85,6 +87,7 @@
 	</light>
 	<wall material="2">
 		<position x="-8.0" y="2.0" z="-8.0"/>
+		<rotation x="45.0" y="0.0" z="0.0"/>
 		<scale x="2.0" y="2.0" z="2.0"/>
 	</wall>
 	<light distance="1.0" energy="5.0">
@@ -127,7 +130,7 @@
 		<position x="-8.0" y="2.0" z="8.0"/>
 		<scale x="2.0" y="2.0" z="2.0"/>
 	</trigger>
-	<trigger destination="Over Barrels" type="checkpoint">
+	<trigger destination="Over Barrels" type="teleport">
 		<position x="8.0" y="2.0" z="8.0"/>
 		<scale x="2.0" y="2.0" z="2.0"/>
 	</trigger>
