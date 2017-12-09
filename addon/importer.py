@@ -53,7 +53,7 @@ class Importer():
     x = float(param.get("x"))
     y = float(param.get("y"))
     z = -float(param.get("z"))
-    return Euler(map(radians, (x, y, z)), 'XYZ')
+    return Euler(map(radians, (x, z, y)), 'XYZ')
 
   def extrackColor(self, param):
     r = float(param.get("r"))

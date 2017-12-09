@@ -37,7 +37,6 @@ class Exporter():
   def checkRotation(self, object):
     rotation = object.matrix_world.to_euler('XYZ')
 
-    print(rotation)
     for i in rotation:
       if self.prepareRot(i) != "0.0":
         return True
