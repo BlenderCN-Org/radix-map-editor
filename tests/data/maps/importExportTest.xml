@@ -130,8 +130,12 @@
 		<position x="-8.0" y="2.0" z="8.0"/>
 		<scale x="2.0" y="2.0" z="2.0"/>
 	</trigger>
-	<trigger destination="Over Barrels" type="teleport">
+	<trigger destination="Over Barrels" type="checkpoint">
 		<position x="8.0" y="2.0" z="8.0"/>
+		<scale x="2.0" y="2.0" z="2.0"/>
+	</trigger>
+	<trigger file="hud" type="screen">
+		<position x="0.0" y="2.0" z="8.0"/>
 		<scale x="2.0" y="2.0" z="2.0"/>
 	</trigger>
 </map>

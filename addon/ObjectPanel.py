@@ -24,7 +24,7 @@ class ObjectPanel(bpy.types.Panel):
     if object.radixTypes == "trigger":
       layout.prop(object, "radixTriggerTypes")
 
-      if object.radixTriggerTypes in {"map", "audio"}:
+      if object.radixTriggerTypes in {"map", "audio", "screen"}:
         layout.prop(object, "radixTriggerFilepath")
 
         if object.radixTriggerTypes == "audio":

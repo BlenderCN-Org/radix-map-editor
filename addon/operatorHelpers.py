@@ -1,6 +1,6 @@
 import bpy
 
-from .managers import AudioManager, MapManager, MaterialManager, ModelManager
+from .managers import AudioManager, MapManager, MaterialManager, ModelManager, ScreenManager
 from . import types
 
 
@@ -67,6 +67,10 @@ def itemsMap(self, context):
 
 def itemsAudio(self, context):
   return [(key, name, name) for key, name in AudioManager.AUDIO.items()]
+
+
+def itemsScreen(self, context):
+  return [(key, name, name) for key, name in ScreenManager.SCREEN.items()]
 
 
 def itemsDestination(self, context):

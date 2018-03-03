@@ -34,6 +34,7 @@ if "bpy" not in locals():
   from .managers import ModelManager
   from .managers import MapManager
   from .managers import AudioManager
+  from .managers import ScreenManager
   from . import CreationPanel
   from . import SidePanel
   from . import ObjectPanel
@@ -63,6 +64,7 @@ else:
   importlib.reload(MaterialPanel)
   importlib.reload(MapManager)
   importlib.reload(AudioManager)
+  importlib.reload(ScreenManager)
   importlib.reload(CreationPanel)
   importlib.reload(SidePanel)
   importlib.reload(ObjectPanel)
@@ -102,6 +104,7 @@ def register():
   ModelManager.preload()
   MapManager.preload()
   AudioManager.preload()
+  ScreenManager.preload()
   MaterialPanel.initRows()
 
   operators.addOperators()
@@ -117,6 +120,9 @@ def unregister():
   ModelManager.MODELS.clear()
   types.delProperties()
   MPTypes.delProperties()
+  MapManager.MAPS.clear()
+  AudioManager.AUDIO.clear()
+  ScreenManager.SCREEN.clear()
 
   bpy.types.INFO_MT_file_export.remove(menu_func_import)
   bpy.types.INFO_MT_file_export.remove(menu_func_export)

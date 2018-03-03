@@ -1,6 +1,6 @@
 from bpy.props import StringProperty, BoolProperty, EnumProperty
 
-from .operatorHelpers import itemsMaterial, itemsModel, itemsAudio, itemsMap, itemsDestination
+from .operatorHelpers import itemsMaterial, itemsModel, itemsAudio, itemsMap, itemsDestination, itemsScreen
 from .managers import ModelManager, MaterialManager
 
 
@@ -55,6 +55,19 @@ operatorList = [
       "bl_description": "Mark the selection as checkpoint trigger.",
       "bl_options": {'REGISTER', 'UNDO'},
       "type": StringProperty(default="checkpoint", options={'HIDDEN'}),
+      "loop": BoolProperty(default=False, options={'HIDDEN'}),
+      "filePath": StringProperty(default="", options={'HIDDEN'})
+    }
+  },
+  {
+    "base": "TriggerSetBase",
+    "className": "TriggerSetScreen",
+    "properties": {
+      "bl_idname": "trigger_set_screen",
+      "bl_label": "Set Screen Trigger",
+      "bl_description": "Mark the selection as screen trigger.",
+      "bl_options": {'REGISTER', 'UNDO'},
+      "type": StringProperty(default="screen", options={'HIDDEN'}),
       "loop": BoolProperty(default=False, options={'HIDDEN'}),
       "filePath": StringProperty(default="", options={'HIDDEN'})
     }
@@ -163,6 +176,22 @@ operatorList = [
     }
   },
   {
+    "base": "SearchBase",
+    "className": "TriggerSearchScreen",
+    "properties": {
+      "bl_idname": "trigger_search_screen",
+      "bl_label": "Search Screen Trigger",
+      "bl_description": "Set screen trigger.",
+      "bl_options": {'REGISTER', 'UNDO'},
+      "bl_property": "items",
+      "items": EnumProperty(items=itemsScreen, options={'HIDDEN'}),
+      "action": "trigger_set_screen",
+      "kwargs": {
+        "items": "filePath"
+      }
+    }
+  },
+  {
     "base": "AddBase",
     "className": "TriggerAddAudio",
     "properties": {
@@ -207,6 +236,18 @@ operatorList = [
       "bl_description": "Add checkpoint trigger.",
       "bl_options": {'REGISTER', 'UNDO'},
       "action": "trigger_search_checkpoint",
+      "kwargs": ['INVOKE_DEFAULT']
+    }
+  },
+  {
+    "base": "AddBase",
+    "className": "TriggerAddScreen",
+    "properties": {
+      "bl_idname": "trigger_add_screen",
+      "bl_label": "Add Screen Trigger",
+      "bl_description": "Add screen trigger.",
+      "bl_options": {'REGISTER', 'UNDO'},
+      "action": "trigger_search_screen",
       "kwargs": ['INVOKE_DEFAULT']
     }
   },

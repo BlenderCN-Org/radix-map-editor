@@ -203,6 +203,11 @@ class Importer():
               bpy.ops.radix.trigger_set_checkpoint(filePath=child.get('destination'))
             else:
               bpy.data.objects.remove(object)
+          elif type == "screen":
+            if 'file' in child.attrib:
+              bpy.ops.radix.trigger_set_screen(filePath=child.get('file'))
+            else:
+              bpy.data.objects.remove(object)
           else:
             bpy.data.objects.remove(object)
       elif child.tag == "model":

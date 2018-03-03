@@ -151,7 +151,7 @@ class Exporter():
           if object.radixTriggerTypes:
             boxElement.set("type", object.radixTriggerTypes)
 
-            if object.radixTriggerTypes == "map":
+            if object.radixTriggerTypes in {"map", "screen"}:
               boxElement.set("file", object.radixTriggerFilepath)
 
             if object.radixTriggerTypes == "audio":
