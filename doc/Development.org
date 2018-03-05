@@ -1,0 +1,45 @@
+* Development guide
+
+** Tests
+It is always good to create tests to cover code functionality / classes.
+Most of the code strongly depends on Blender API and is there to create user interface.
+The most critical part is map import and export.
+The tests so far cover map import&export and dynamic operators.
+
+*** What do i need ?
+You need to have installed and configured this extension in Blender
+If you have that, you can cuntinue, if you don't look at Installation.
+
+*** How to run tests ?
+**** Run with local Blender installation
+Go to ~tests~ directory and run
+
+#+BEGIN_SRC bash
+blender --background -noaudio <optional_blend_file> --python <python_tests>
+#+END_SRC
+
+Example for ~importExport~ test
+/Note:/ This test does not require existing blend file.
+
+#+BEGIN_SRC bash
+blender --background -noaudio --python importExport.py
+#+END_SRC
+
+**** Run tests with docker image
+Go to ~docker-compose~ directory and run
+
+#+BEGIN_SRC bash
+docker-compose up
+#+END_SRC
+
+This will execute all available tests and at the end display table with results.
+
+Example of tests results:
+#+BEGIN_EXAMPLE
++-----------------+--------+
+| Test file       | Result |
++-----------------+--------+
+| importExport.py |   OK   |
+| operators.py    |   OK   |
++-----------------+--------+
+#+END_EXAMPLE
