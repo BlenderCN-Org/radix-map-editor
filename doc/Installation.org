@@ -21,7 +21,7 @@
 - Clone or download this repository
 - Install the plugin
   - Copy directory ~glportal-editor~ into Blender configuration folder ~/home/user/.config/blender/VERSION/scripts/addons~
-  - use our script ~linkExtension~ which will create soft link of glportal-editor directory to blender configuration folder
+  - Or use script ~linkExtension~ which will create soft link of glportal-editor directory to blender configuration folder
 - Run Blender:
   - Find and check the ~GlPortal XML Format~ box. Wait a moment for activation to complete.
   - Find and click on right arrow to display details and preferences.
