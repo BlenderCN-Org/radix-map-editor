@@ -142,4 +142,12 @@
 		<position x="-3.5" y="2.0" z="8.0"/>
 		<scale x="2.0" y="2.0" z="2.0"/>
 	</trigger>
+	<trigger action="true" ref="Cute water" toogle="false" type="remove">
+		<position x="-3.5" y="5.0" z="8.0"/>
+		<scale x="2.0" y="2.0" z="2.0"/>
+	</trigger>
+	<trigger action="false" ref="Cute water" toogle="true" type="remove">
+		<position x="-3.5" y="10.0" z="8.0"/>
+		<scale x="2.0" y="2.0" z="2.0"/>
+	</trigger>
 </map>
