@@ -30,7 +30,6 @@ operatorList = [
       "bl_description": "Mark the selection as map trigger.",
       "bl_options": {'REGISTER', 'UNDO'},
       "type": StringProperty(default="map", options={'HIDDEN'}),
-      "loop": BoolProperty(default=False, options={'HIDDEN'}),
       "filePath": StringProperty(default="", options={'HIDDEN'})
     }
   },
@@ -43,7 +42,6 @@ operatorList = [
       "bl_description": "Mark the selection as teleport trigger.",
       "bl_options": {'REGISTER', 'UNDO'},
       "type": StringProperty(default="teleport", options={'HIDDEN'}),
-      "loop": BoolProperty(default=False, options={'HIDDEN'}),
       "filePath": StringProperty(default="", options={'HIDDEN'})
     }
   },
@@ -56,7 +54,6 @@ operatorList = [
       "bl_description": "Mark the selection as checkpoint trigger.",
       "bl_options": {'REGISTER', 'UNDO'},
       "type": StringProperty(default="checkpoint", options={'HIDDEN'}),
-      "loop": BoolProperty(default=False, options={'HIDDEN'}),
       "filePath": StringProperty(default="", options={'HIDDEN'})
     }
   },
@@ -69,7 +66,6 @@ operatorList = [
       "bl_description": "Mark the selection as screen trigger.",
       "bl_options": {'REGISTER', 'UNDO'},
       "type": StringProperty(default="screen", options={'HIDDEN'}),
-      "loop": BoolProperty(default=False, options={'HIDDEN'}),
       "filePath": StringProperty(default="", options={'HIDDEN'})
     }
   },
@@ -82,7 +78,6 @@ operatorList = [
       "bl_description": "Mark the selection as remove trigger.",
       "bl_options": {'REGISTER', 'UNDO'},
       "type": StringProperty(default="remove", options={'HIDDEN'}),
-      "loop": BoolProperty(default=False, options={'HIDDEN'}),
       "filePath": StringProperty(default="", options={'HIDDEN'}),
       "removeAction": BoolProperty(default=False, options={'HIDDEN'}),
       "removeToogle": BoolProperty(default=False, options={'HIDDEN'})
@@ -97,7 +92,6 @@ operatorList = [
       "bl_description": "Mark the selection as win trigger.",
       "bl_options": {'REGISTER', 'UNDO'},
       "type": StringProperty(default="win", options={'HIDDEN'}),
-      "loop": BoolProperty(default=False, options={'HIDDEN'}),
       "filePath": StringProperty(default="", options={'HIDDEN'})
     }
   },
@@ -110,7 +104,6 @@ operatorList = [
       "bl_description": "Mark the selection as death trigger.",
       "bl_options": {'REGISTER', 'UNDO'},
       "type": StringProperty(default="death", options={'HIDDEN'}),
-      "loop": BoolProperty(default=False, options={'HIDDEN'}),
       "filePath": StringProperty(default="", options={'HIDDEN'})
     }
   },
@@ -123,7 +116,6 @@ operatorList = [
       "bl_description": "Mark the selection as radiation trigger.",
       "bl_options": {'REGISTER', 'UNDO'},
       "type": StringProperty(default="radiation", options={'HIDDEN'}),
-      "loop": BoolProperty(default=False, options={'HIDDEN'}),
       "filePath": StringProperty(default="", options={'HIDDEN'})
     }
   },

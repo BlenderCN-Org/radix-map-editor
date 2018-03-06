@@ -66,7 +66,19 @@ class TriggerSetBase(bpy.types.Operator):
     for object in objects:
       if object.type == 'MESH':
         if object.radixTypes != "model":
-          setTrigger(object, self.type, self.filePath, self.loop)
+          args = {
+            "object": object,
+            "type": self.type,
+            "filePath": self.filePath
+          }
+
+          if self.type == "audio":
+            args['loop'] = self.loop
+          elif self.type == "remove":
+            args["removeAction"] = self.removeAction
+            args["removeToogle"] = self.removeToogle
+
+          setTrigger(**args)
         else:
           self.report(
             {'ERROR'}, "Models can't be converted to the %s trigger." % (self.type)
