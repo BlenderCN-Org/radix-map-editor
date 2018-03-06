@@ -7,7 +7,7 @@ bl_info = {
   "location":     "File > Import-Export",
   "description":  "Module for loading, editing and saving Radix maps.",
   "category":     "Import-Export",
-  "tracker_url":  "https://github.com/GlPortal/map-editor/issues"
+  "tracker_url":  "https://github.com/SGOrava/radix-map-editor/issues"
 }
 
 if "bpy" not in locals():
