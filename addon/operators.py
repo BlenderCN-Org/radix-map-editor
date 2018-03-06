@@ -46,7 +46,7 @@ class SearchBase(bpy.types.Operator):
 
 class TriggerSetBase(bpy.types.Operator):
   """Base for trigger set operators"""
-  bl_idname = 'gpl.trigger_set'
+  bl_idname = 'radix.trigger_set'
   bl_label = 'Trigger'
   bl_description = 'Base for set trigger operator'
   bl_options = {'INTERNAL'}
@@ -54,6 +54,8 @@ class TriggerSetBase(bpy.types.Operator):
   type = StringProperty(default="")
   filePath = StringProperty(default="")
   loop = BoolProperty(default=False)
+  removeToogle = BoolProperty(default=False)
+  removeAction = BoolProperty(default=False)
 
   def execute(self, context):
     objects = bpy.context.selected_objects
@@ -64,7 +66,19 @@ class TriggerSetBase(bpy.types.Operator):
     for object in objects:
       if object.type == 'MESH':
         if object.radixTypes != "model":
-          setTrigger(object, self.type, self.filePath, self.loop)
+          args = {
+            "object": object,
+            "type": self.type,
+            "filePath": self.filePath
+          }
+
+          if self.type == "audio":
+            args['loop'] = self.loop
+          elif self.type == "remove":
+            args["removeAction"] = self.removeAction
+            args["removeToogle"] = self.removeToogle
+
+          setTrigger(**args)
         else:
           self.report(
             {'ERROR'}, "Models can't be converted to the %s trigger." % (self.type)
@@ -137,9 +151,34 @@ class VolumeSetBase(bpy.types.Operator):
     return {'FINISHED'}
 
 
+class CameraSetBase(bpy.types.Operator):
+  """Base for camera operator"""
+  bl_idname = "radix.camera"
+  bl_label = "Camera"
+  bl_description = "Mark selected cameras."
+  bl_options = {'INTERNAL'}
+
+  radixType = StringProperty(default="")
+
+  def execute(self, context):
+    objects = bpy.context.selected_objects
+
+    if not (objects and self.radixType):
+      return {'CANCELLED'}
+
+    for object in objects:
+      if object.type == 'CAMERA':
+        object.radixTypes = self.radixType
+      else:
+        self.report(
+          {'ERROR'}, "Object of type '%s' can't be converted to the camera." % (object.type)
+        )
+    return {'FINISHED'}
+
+
 class AddBase(bpy.types.Operator):
   """Base for add operator"""
-  bl_idname = 'gpl.add'
+  bl_idname = 'radix.add'
   bl_label = 'Add'
   bl_description = 'Base for add operator'
   bl_options = {'INTERNAL'}
@@ -161,6 +200,33 @@ class AddBase(bpy.types.Operator):
         else:
           self.action()
         return {'FINISHED'}
+    return {'CANCELLED'}
+
+
+class CameraAddBase(bpy.types.Operator):
+  """Base for add operator"""
+  bl_idname = 'radix.camera_add'
+  bl_label = 'Add'
+  bl_description = 'Base for add operator'
+  bl_options = {'INTERNAL'}
+
+  action = None
+  kwargs = None
+
+  def execute(self, context):
+    if self.action:
+      if isinstance(self.action, str):
+        self.action = getattr(getattr(bpy.ops, idnamePrefix), self.action)
+
+      bpy.ops.object.camera_add()
+      if self.kwargs:
+        if isinstance(self.kwargs, dict):
+          self.action(**self.kwargs)
+        elif isinstance(self.kwargs, list):
+          self.action(*self.kwargs)
+      else:
+        self.action()
+      return {'FINISHED'}
     return {'CANCELLED'}
 
 

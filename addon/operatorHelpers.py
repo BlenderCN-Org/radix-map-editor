@@ -1,6 +1,6 @@
 import bpy
 
-from .managers import AudioManager, MapManager, MaterialManager, ModelManager
+from .managers import AudioManager, MapManager, MaterialManager, ModelManager, ScreenManager
 from . import types
 
 
@@ -18,7 +18,8 @@ def resetTriggerSettings(object):
       object.radixTriggerAudioLoop = False
 
 
-def setTrigger(object, type, filePath="", loop=False):
+# TODO Adapt to new features
+def setTrigger(object, type, filePath="", loop=False, removeToogle=False, removeAction=False):
   prefs = bpy.context.user_preferences.addons[__package__].preferences
   clearRadixProperties(object)
 
@@ -32,7 +33,13 @@ def setTrigger(object, type, filePath="", loop=False):
   if loop:
     object.radixTriggerAudioLoop = loop
 
-  if filePath:
+  if filePath and type in {"teleport", "checkpoint"}:
+    object.radixTriggerDestination = filePath
+  elif filePath and type == "remove":
+    object.radixTriggerRemoveReference = filePath
+    object.radixTriggerRemoveToogle = removeToogle
+    object.radixTriggerRemoveAction = removeAction
+  elif filePath:
     object.radixTriggerFilepath = filePath
 
 
@@ -67,11 +74,23 @@ def itemsAudio(self, context):
   return [(key, name, name) for key, name in AudioManager.AUDIO.items()]
 
 
+def itemsScreen(self, context):
+  return [(key, name, name) for key, name in ScreenManager.SCREEN.items()]
+
+
+def itemsDestination(self, context):
+  return [(object.radixName, object.radixName, object.radixName) for object in context.scene.objects if object.radixName and object.radixTypes == "destination"]
+
+
+def itemsWithName(self, context):
+  return [(object.radixName, object.radixName, object.radixName) for object in context.scene.objects if object.radixName]
+
+
 def simpleCube():
   if ModelManager.create("Cube.obj"):
     object = bpy.context.selected_objects[0]
     object.radixTypes = "none"
     object.dimensions = [2.0, 2.0, 2.0]
-    bpy.ops.object.transform_apply(location=False, rotation=False, scale=True)
+    bpy.ops.object.transform_apply(scale=True)
     return True
   return False

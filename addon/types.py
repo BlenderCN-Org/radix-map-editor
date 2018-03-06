@@ -1,26 +1,35 @@
 import bpy
 from bpy.props import EnumProperty, StringProperty, BoolProperty
 
-
+"""List of available engine types"""
 RADIX_TYPES = [
   ("none", "None", "No special property"),
   ("wall", "Wall", "Wall"),
   ("volume", "Volume", "Volume"),
   ("trigger", "Trigger", "Trigger"),
-  ("model", "Model", "Model")
+  ("model", "Model", "Model"),
+  ("destination", "Destination", "Destination"),
+  ("spawn", "Spawn", "Spawn")
 ]
+"""List of available volume types"""
 RADIX_VOLUME_TYPES = [
   ("none", "None", "No special property"),
   ("acid", "Acid Pool", "A pool full of acid, hurts..")
 ]
+"""List of available trigger types"""
 RADIX_TRIGGER_TYPES = [
   ("none", "None", "No special property"),
   ("win", "Win", "Area triggers win"),
   ("map", "Map", "Area triggers new map"),
   ("audio", "Audio", "Area triggers new audio"),
   ("death", "Death", "Area triggers death"),
-  ("radiation", "Radiation", "Area triggers radiation")
+  ("radiation", "Radiation", "Area triggers radiation"),
+  ("teleport", "Teleport", "Area triggers teleport"),
+  ("screen", "Screen", "Area triggers screen"),
+  ("checkpoint", "Checkpoint", "Area marks checkpoint"),
+  ("remove", "Remove", "Area triggers remove")
 ]
+"""List of available materials"""
 RADIX_MATERIAL_TYPES = [
   ("none", "None", "No material")
 ]
@@ -80,6 +89,26 @@ def setProperties():
     description="Play audio file in loop",
     default=False
   )
+  bpy.types.Object.radixTriggerDestination = StringProperty(
+    name="Destination",
+    description="Name of the destination",
+    default=""
+  )
+  bpy.types.Object.radixTriggerRemoveToogle = BoolProperty(
+    name="Toogle",
+    description="Toogle the action",
+    default=False
+  )
+  bpy.types.Object.radixTriggerRemoveAction = BoolProperty(
+    name="Acion",
+    description="Require action key",
+    default=False
+  )
+  bpy.types.Object.radixTriggerRemoveReference = StringProperty(
+    name="Reference",
+    description="Name of the object to remove",
+    default=""
+  )
   bpy.types.Object.radixModel = StringProperty(
     name="Model",
     description="Relative path to the model",
@@ -91,7 +120,7 @@ def setProperties():
     default=""
   )
   bpy.types.Object.radixName = StringProperty(
-    name="Object name",
+    name="Name",
     description="Object name used by Radix engine as identifier",
     default="",
     update=onUpdateRadixTypes
@@ -109,3 +138,4 @@ def delProperties():
   del bpy.types.WindowManager.importedFilepath
   del bpy.types.Object.radixMaterial  # Defined in managers/MaterialManager.py
   del bpy.types.Object.radixName
+  del bpy.types.Object.radixTriggerDestination

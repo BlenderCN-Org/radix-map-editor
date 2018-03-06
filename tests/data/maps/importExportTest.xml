@@ -51,7 +51,7 @@
 		<position x="0.0" y="3.0" z="10.5"/>
 		<scale x="20.0" y="5.0" z="1.0"/>
 	</wall>
-	<trigger file="old2.xml" type="map">
+	<trigger file="old2" type="map">
 		<position x="8.0" y="2.0" z="-0.0"/>
 		<scale x="2.0" y="2.0" z="2.0"/>
 	</trigger>
@@ -69,15 +69,17 @@
 	</trigger>
 	<acid name="Cute water">
 		<position x="-2.0" y="2.0" z="-8.0"/>
+		<rotation x="0.0" y="45.0" z="0.0"/>
 		<scale x="2.0" y="2.0" z="2.0"/>
 	</acid>
 	<wall material="3">
 		<position x="-5.0" y="2.0" z="-8.0"/>
+		<rotation x="0.0" y="0.0" z="315.0"/>
 		<scale x="2.0" y="2.0" z="2.0"/>
 	</wall>
 	<spawn name="Start">
 		<position x="0.0" y="1.5" z="-0.0"/>
-		<rotation x="0.0" y="0.0" z="0"/>
+		<rotation x="0.0" y="0.0" z="0.0"/>
 	</spawn>
 	<light distance="30.0" energy="1.0" specular="1">
 		<position x="0.0" y="6.0" z="-0.0"/>
@@ -85,6 +87,7 @@
 	</light>
 	<wall material="2">
 		<position x="-8.0" y="2.0" z="-8.0"/>
+		<rotation x="45.0" y="0.0" z="0.0"/>
 		<scale x="2.0" y="2.0" z="2.0"/>
 	</wall>
 	<light distance="1.0" energy="5.0">
@@ -119,4 +122,32 @@
 		<position x="0.0" y="2.5" z="9.75"/>
 		<color b="1.0" g="0.5" r="0.5"/>
 	</light>
+	<destination name="Over Barrels">
+		<position x="-5.0" y="8.0" z="8.0"/>
+		<rotation x="0.0" y="0.0" z="0.0"/>
+	</destination>
+	<trigger destination="Over Barrels" type="teleport">
+		<position x="-8.0" y="2.0" z="8.0"/>
+		<scale x="2.0" y="2.0" z="2.0"/>
+	</trigger>
+	<trigger destination="Over Barrels" type="checkpoint">
+		<position x="8.0" y="2.0" z="8.0"/>
+		<scale x="2.0" y="2.0" z="2.0"/>
+	</trigger>
+	<trigger file="hud" type="screen">
+		<position x="0.0" y="2.0" z="8.0"/>
+		<scale x="2.0" y="2.0" z="2.0"/>
+	</trigger>
+	<trigger action="false" ref="Cute water" toogle="false" type="remove">
+		<position x="-3.5" y="2.0" z="8.0"/>
+		<scale x="2.0" y="2.0" z="2.0"/>
+	</trigger>
+	<trigger action="true" ref="Cute water" toogle="false" type="remove">
+		<position x="-3.5" y="5.0" z="8.0"/>
+		<scale x="2.0" y="2.0" z="2.0"/>
+	</trigger>
+	<trigger action="false" ref="Cute water" toogle="true" type="remove">
+		<position x="-3.5" y="10.0" z="8.0"/>
+		<scale x="2.0" y="2.0" z="2.0"/>
+	</trigger>
 </map>
