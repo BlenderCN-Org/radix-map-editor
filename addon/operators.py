@@ -54,6 +54,8 @@ class TriggerSetBase(bpy.types.Operator):
   type = StringProperty(default="")
   filePath = StringProperty(default="")
   loop = BoolProperty(default=False)
+  removeToogle = BoolProperty(default=False)
+  removeAction = BoolProperty(default=False)
 
   def execute(self, context):
     objects = bpy.context.selected_objects

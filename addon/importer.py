@@ -208,6 +208,24 @@ class Importer():
               bpy.ops.radix.trigger_set_screen(filePath=child.get('file'))
             else:
               bpy.data.objects.remove(object)
+          elif type == "remove":
+            if 'ref' in child.attrib:
+              removeToogle = False
+              removeAction = False
+
+              if "toogle" in child.attrib:
+                removeToogle = self.xmlGetBool(child.get('toogle'))
+
+              if "action" in child.attrib:
+                removeAction = self.xmlGetBool(child.get('action'))
+
+              bpy.ops.radix.trigger_set_remove(
+                filePath=child.get('ref'),
+                removeToogle=removeToogle,
+                removeAction=removeAction
+              )
+            else:
+              bpy.data.objects.remove(object)
           else:
             bpy.data.objects.remove(object)
       elif child.tag == "model":

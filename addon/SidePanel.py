@@ -29,6 +29,7 @@ class SidePanel(bpy.types.Panel):
     layout.operator("radix.trigger_search_teleport", icon='MESH_CUBE', text="Teleport")
     layout.operator("radix.trigger_search_checkpoint", icon='MESH_CUBE', text="Checkpoint")
     layout.operator("radix.trigger_search_screen", icon='MESH_CUBE', text="Screen")
+    layout.operator("radix.trigger_search_remove", icon='MESH_CUBE', text="Remove")
 
     layout.label("Light:")
     layout.operator("radix.set_light_common", icon='LAMP_POINT')

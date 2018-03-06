@@ -31,6 +31,10 @@ class ObjectPanel(bpy.types.Panel):
           layout.prop(object, "radixTriggerAudioLoop")
       elif object.radixTriggerTypes in {"teleport", "checkpoint"}:
         layout.prop(object, "radixTriggerDestination")
+      elif object.radixTriggerTypes == "remove":
+        layout.prop(object, "radixTriggerRemoveReference")
+        layout.prop(object, "radixTriggerRemoveAction")
+        layout.prop(object, "radixTriggerRemoveToogle")
     elif object.radixTypes == "volume":
       layout.prop(object, "radixVolumeTypes")
 

@@ -1,6 +1,7 @@
 from bpy.props import StringProperty, BoolProperty, EnumProperty
 
-from .operatorHelpers import itemsMaterial, itemsModel, itemsAudio, itemsMap, itemsDestination, itemsScreen
+from .operatorHelpers import itemsMaterial, itemsModel, itemsAudio, itemsMap, itemsDestination, \
+  itemsScreen, itemsWithName
 from .managers import ModelManager, MaterialManager
 
 
@@ -70,6 +71,21 @@ operatorList = [
       "type": StringProperty(default="screen", options={'HIDDEN'}),
       "loop": BoolProperty(default=False, options={'HIDDEN'}),
       "filePath": StringProperty(default="", options={'HIDDEN'})
+    }
+  },
+  {
+    "base": "TriggerSetBase",
+    "className": "TriggerSetRemove",
+    "properties": {
+      "bl_idname": "trigger_set_remove",
+      "bl_label": "Set Remove Trigger",
+      "bl_description": "Mark the selection as remove trigger.",
+      "bl_options": {'REGISTER', 'UNDO'},
+      "type": StringProperty(default="remove", options={'HIDDEN'}),
+      "loop": BoolProperty(default=False, options={'HIDDEN'}),
+      "filePath": StringProperty(default="", options={'HIDDEN'}),
+      "removeAction": BoolProperty(default=False, options={'HIDDEN'}),
+      "removeToogle": BoolProperty(default=False, options={'HIDDEN'})
     }
   },
   {
@@ -192,6 +208,22 @@ operatorList = [
     }
   },
   {
+    "base": "SearchBase",
+    "className": "TriggerSearchRemove",
+    "properties": {
+      "bl_idname": "trigger_search_remove",
+      "bl_label": "Search Remove Trigger",
+      "bl_description": "Set remove trigger.",
+      "bl_options": {'REGISTER', 'UNDO'},
+      "bl_property": "items",
+      "items": EnumProperty(items=itemsWithName, options={'HIDDEN'}),
+      "action": "trigger_set_remove",
+      "kwargs": {
+        "items": "filePath"
+      }
+    }
+  },
+  {
     "base": "AddBase",
     "className": "TriggerAddAudio",
     "properties": {
@@ -248,6 +280,18 @@ operatorList = [
       "bl_description": "Add screen trigger.",
       "bl_options": {'REGISTER', 'UNDO'},
       "action": "trigger_search_screen",
+      "kwargs": ['INVOKE_DEFAULT']
+    }
+  },
+  {
+    "base": "AddBase",
+    "className": "TriggerAddRemove",
+    "properties": {
+      "bl_idname": "trigger_add_remove",
+      "bl_label": "Add Remove Trigger",
+      "bl_description": "Add remove trigger.",
+      "bl_options": {'REGISTER', 'UNDO'},
+      "action": "trigger_search_remove",
       "kwargs": ['INVOKE_DEFAULT']
     }
   },

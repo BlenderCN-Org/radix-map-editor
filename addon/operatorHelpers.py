@@ -18,7 +18,8 @@ def resetTriggerSettings(object):
       object.radixTriggerAudioLoop = False
 
 
-def setTrigger(object, type, filePath="", loop=False):
+# TODO Adapt to new features
+def setTrigger(object, type, filePath="", loop=False, removeToogle=False, removeAction=False):
   prefs = bpy.context.user_preferences.addons[__package__].preferences
   clearRadixProperties(object)
 
@@ -34,6 +35,10 @@ def setTrigger(object, type, filePath="", loop=False):
 
   if filePath and type in {"teleport", "checkpoint"}:
     object.radixTriggerDestination = filePath
+  elif filePath and type == "remove":
+    object.radixTriggerRemoveReference = filePath
+    object.radixTriggerRemoveToogle = removeToogle
+    object.radixTriggerRemoveAction = removeAction
   elif filePath:
     object.radixTriggerFilepath = filePath
 
@@ -75,6 +80,10 @@ def itemsScreen(self, context):
 
 def itemsDestination(self, context):
   return [(object.radixName, object.radixName, object.radixName) for object in context.scene.objects if object.radixName and object.radixTypes == "destination"]
+
+
+def itemsWithName(self, context):
+  return [(object.radixName, object.radixName, object.radixName) for object in context.scene.objects if object.radixName]
 
 
 def simpleCube():

@@ -31,6 +31,7 @@ class CreationPanel(bpy.types.Panel):
     layout.operator("radix.trigger_add_teleport", icon='MESH_CUBE', text="Teleport")
     layout.operator("radix.trigger_add_checkpoint", icon='MESH_CUBE', text="Checkpoint")
     layout.operator("radix.trigger_add_screen", icon='MESH_CUBE', text="Screen")
+    layout.operator("radix.trigger_add_remove", icon='MESH_CUBE', text="Remove")
 
     layout.label("Lights:")
     layout.operator("radix.add_light_common", icon='LAMP_POINT')

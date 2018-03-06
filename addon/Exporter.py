@@ -160,6 +160,11 @@ class Exporter():
 
             if object.radixTriggerTypes in {"teleport", "checkpoint"}:
               boxElement.set("destination", object.radixTriggerDestination)
+
+            if object.radixTriggerTypes == "remove":
+              boxElement.set("action", self.setBool(object.radixTriggerRemoveAction))
+              boxElement.set("ref", object.radixTriggerRemoveReference)
+              boxElement.set("toogle", self.setBool(object.radixTriggerRemoveToogle))
         elif type == "wall":
           boxElement = tree.SubElement(root, "wall")
 

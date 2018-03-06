@@ -94,6 +94,21 @@ def setProperties():
     description="Name of the destination",
     default=""
   )
+  bpy.types.Object.radixTriggerRemoveToogle = BoolProperty(
+    name="Toogle",
+    description="Toogle the action",
+    default=False
+  )
+  bpy.types.Object.radixTriggerRemoveAction = BoolProperty(
+    name="Acion",
+    description="Require action key",
+    default=False
+  )
+  bpy.types.Object.radixTriggerRemoveReference = StringProperty(
+    name="Reference",
+    description="Name of the object to remove",
+    default=""
+  )
   bpy.types.Object.radixModel = StringProperty(
     name="Model",
     description="Relative path to the model",
