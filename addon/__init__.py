@@ -12,8 +12,7 @@ bl_info = {
 
 if "bpy" not in locals():
   from . import types
-  from . import exportRadixFormat
-  from . import importRadixFormat
+  from . import MenuFileImportExport
   from . import operatorsList
   from . import operators
   from . import mapOperators
@@ -41,8 +40,7 @@ else:
   import importlib
 
   importlib.reload(types)
-  importlib.reload(exportRadixFormat)
-  importlib.reload(importRadixFormat)
+  importlib.reload(MenuFileImportExport)
   importlib.reload(operatorsList)
   importlib.reload(operators)
   importlib.reload(mapOperators)
