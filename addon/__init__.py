@@ -18,7 +18,7 @@ if "bpy" not in locals():
   from . import mapOperators
   from . import preferences
   from . import mapHelpers
-  from . import radixMenuAdd
+  from . import MenuAdd
   from . import updateTextures
   from . import lightsOperators
   from . import Exporter
@@ -46,7 +46,7 @@ else:
   importlib.reload(mapOperators)
   importlib.reload(preferences)
   importlib.reload(mapHelpers)
-  importlib.reload(radixMenuAdd)
+  importlib.reload(MenuAdd)
   importlib.reload(updateTextures)
   importlib.reload(lightsOperators)
   importlib.reload(Exporter)
@@ -82,11 +82,11 @@ def register():
 
   types.setProperties()
   MPTypes.initProperties()
-  radixMenuAdd.addDynamicMenu()
+  MenuAdd.addDynamicMenu()
 
   bpy.types.INFO_MT_file_export.append(menu_func_export)
   bpy.types.INFO_MT_file_import.append(menu_func_import)
-  bpy.types.INFO_MT_add.prepend(radixMenuAdd.radix_add_menu)
+  bpy.types.INFO_MT_add.prepend(MenuAdd.radix_add_menu)
   bpy.app.handlers.scene_update_post.append(updateTextures.sceneUpdater)
   bpy.types.WindowManager.MPMaterials = bpy.props.CollectionProperty(type=MPTypes.Row)
 
@@ -123,10 +123,10 @@ def unregister():
 
   bpy.types.INFO_MT_file_export.remove(menu_func_import)
   bpy.types.INFO_MT_file_export.remove(menu_func_export)
-  bpy.types.INFO_MT_add.remove(radixMenuAdd.radix_add_menu)
+  bpy.types.INFO_MT_add.remove(MenuAdd.radix_add_menu)
   bpy.app.handlers.scene_update_post.remove(updateTextures.sceneUpdater)
 
-  radixMenuAdd.clearDynamicMenu()
+  MenuAdd.clearDynamicMenu()
 
   del bpy.types.Scene.countObjects
   del bpy.types.Scene.fixObjects
