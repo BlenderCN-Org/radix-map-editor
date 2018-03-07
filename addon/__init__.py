@@ -82,6 +82,7 @@ def register():
 
   types.setProperties()
   MPTypes.initProperties()
+  radixMenuAdd.addDynamicMenu()
 
   bpy.types.INFO_MT_file_export.append(menu_func_export)
   bpy.types.INFO_MT_file_import.append(menu_func_import)
@@ -124,6 +125,8 @@ def unregister():
   bpy.types.INFO_MT_file_export.remove(menu_func_export)
   bpy.types.INFO_MT_add.remove(radixMenuAdd.radix_add_menu)
   bpy.app.handlers.scene_update_post.remove(updateTextures.sceneUpdater)
+
+  radixMenuAdd.clearDynamicMenu()
 
   del bpy.types.Scene.countObjects
   del bpy.types.Scene.fixObjects
