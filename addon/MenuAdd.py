@@ -160,7 +160,7 @@ menuStructure = [
 dynamicMenus = []
 
 
-class menuBase(Menu):
+class MenuBase(Menu):
   bl_idname = "radixMenu.base"
   bl_label = "Radix Base"
 
@@ -184,7 +184,7 @@ def addDynamicMenu():
     if isinstance(item["action"], list):
       operatorClass = type(
         'MenuDyn_' + item["id"],
-        (menuBase, ),
+        (MenuBase, ),
         {
           'bl_idname': "radix." + item["id"],
           'bl_label': item["label"],
